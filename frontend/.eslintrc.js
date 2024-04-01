@@ -20,5 +20,9 @@ module.exports = {
         project
       }
     }
+  },
+  rules: {
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'import/no-default-export': 'off'
   }
 };
