@@ -1,23 +1,23 @@
-# Use the official Node.js LTS image as base
-FROM node:lts-alpine as builder
+# Use the official Node.js LTS Alpine image as the base image
+FROM node:lts-alpine AS base
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json* ./
 
 # Install dependencies using npm
-RUN npm install
+RUN npm ci
 
-# Copy the entire project
+# Copy the rest of your application's source code
 COPY . .
 
-# Build the app
+# Build the application
 RUN npm run build
 
-# Expose port 80
-EXPOSE 80
+# Expose port 3000 for the application
+EXPOSE 3000
 
-# Command to run the application
-CMD [ "npm", "run", "preview" ]
+# Start the application
+CMD ["npm", "run", "start"]
