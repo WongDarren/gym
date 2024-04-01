@@ -1,11 +1,5 @@
 # 🍑 Gym Backend 🍑
 
-This project uses Quarkus for the backend and Vite for the frontend.
-
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
-
-If you want to learn more about Vite, please visit its website: https://vitejs.dev/ .
-
 ## Running the backend in dev mode
 
 You can run your application in dev mode that enables live coding using:
@@ -65,24 +59,3 @@ If you want to learn more about building native executables, please consult http
 npm install
 npm run dev
 ```
-
-## Scripts
-
-For your convenience, here are some scripts provided for the frontend:
-
-```json
-"scripts": {
-  "dev": "vite",
-  "build": "tsc && vite build",
-  "preview": "vite preview",
-  "lint": "npx eslint ..",
-  "prettier": "npx prettier --write .."
-}
-```
-
-- `dev`: Runs Vite in development mode.
-- `build`: Compiles TypeScript and builds the frontend for production.
-- `preview`: Previews the built production app locally.
-- `lint`: Runs ESLint for linting.
-- `prettier`: Runs Prettier for code formatting.
-- Feel free to customize and extend these scripts as needed for your frontend development workflow.

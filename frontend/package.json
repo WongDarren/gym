@@ -1,36 +1,31 @@
 {
   "name": "gym",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "lint": "npx eslint ..",
-    "prettier": "npx prettier --write .."
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "npx prettier . --write"
   },
   "dependencies": {
-    "@headlessui/react": "1.7.18",
-    "@heroicons/react": "2.1.1",
-    "@types/react": "18.2.58",
-    "@types/react-dom": "18.2.19",
-    "@typescript-eslint/eslint-plugin": "7.0.2",
-    "@typescript-eslint/parser": "7.0.2",
-    "@vitejs/plugin-react": "4.2.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-router-dom": "6.22.1",
-    "typescript": "5.3.3"
+    "next": "14.1.4",
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "autoprefixer": "10.4.17",
-    "eslint": "8.57.0",
-    "eslint-plugin-react": "7.33.2",
-    "postcss": "8.4.35",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@vercel/style-guide": "^6.0.0",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.4",
+    "postcss": "^8",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "0.5.11",
-    "tailwindcss": "3.4.1",
-    "vite": "5.1.4"
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
   }
 }
