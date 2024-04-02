@@ -1,4 +1,4 @@
-package com.wongdarren.rest.json;
+package com.wongdarren.controller;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;

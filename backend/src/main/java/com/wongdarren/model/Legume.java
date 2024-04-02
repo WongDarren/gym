@@ -1,4 +1,4 @@
-package com.wongdarren.rest.json;
+package com.wongdarren.model;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 

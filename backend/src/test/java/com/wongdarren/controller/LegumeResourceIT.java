@@ -1,4 +1,4 @@
-package com.wongdarren.rest.json;
+package com.wongdarren.controller;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 

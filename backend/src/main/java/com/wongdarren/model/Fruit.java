@@ -1,4 +1,4 @@
-package com.wongdarren.rest.json;
+package com.wongdarren.model;
 
 public class Fruit {
 

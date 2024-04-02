@@ -1,4 +1,4 @@
-package com.wongdarren.rest.json;
+package com.wongdarren.config;
 
 import io.vertx.core.http.HttpServerRequest;
 import jakarta.ws.rs.container.ContainerRequestContext;
