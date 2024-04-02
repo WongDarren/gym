@@ -3,7 +3,19 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <groupId>com.wongdarren</groupId>
   <artifactId>gym</artifactId>
+  <modelVersion>4.0.0</modelVersion>
+  <version>1.0.0-SNAPSHOT</version>
+  <properties>
+    <maven.compiler.source>22</maven.compiler.source>
+    <maven.compiler.target>22</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+    <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+    <quarkus.platform.version>3.9.1</quarkus.platform.version>
+    <surefire-plugin.version>3.1.2</surefire-plugin.version>
+  </properties>
   <build>
     <plugins>
       <plugin>
@@ -30,60 +42,66 @@
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-    <!-- Quarkus REST Jackson -->
-    <dependency>
-      <artifactId>quarkus-rest-jackson</artifactId>
-      <groupId>io.quarkus</groupId>
-    </dependency>
-    <!-- Open API -->
-    <dependency>
-      <artifactId>quarkus-smallrye-openapi</artifactId>
-      <groupId>io.quarkus</groupId>
-    </dependency>
-    <!-- PostgreSQL database -->
-    <dependency>
-      <artifactId>quarkus-jdbc-postgresql</artifactId>
-      <groupId>io.quarkus</groupId>
-    </dependency>
-    <!-- Logging -->
-    <dependency>
-      <artifactId>jboss-logging</artifactId>
-      <groupId>org.jboss.logging</groupId>
-    </dependency>
-    <!-- Quarkus Unit Testing -->
-    <dependency>
-      <artifactId>quarkus-junit5</artifactId>
-      <groupId>io.quarkus</groupId>
-      <scope>test</scope>
-    </dependency>
-    <!-- Test HTTP endpoints -->
-    <dependency>
-      <artifactId>rest-assured</artifactId>
-      <groupId>io.rest-assured</groupId>
-      <scope>test</scope>
-    </dependency>
-    <!-- Unit Test Coverage -->
-    <dependency>
-      <artifactId>quarkus-jacoco</artifactId>
-      <groupId>io.quarkus</groupId>
-    </dependency>
-  </dependencies>
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <artifactId>${quarkus.platform.artifact-id}</artifactId>
         <groupId>${quarkus.platform.group-id}</groupId>
+        <artifactId>${quarkus.platform.artifact-id}</artifactId>
         <scope>import</scope>
         <type>pom</type>
         <version>${quarkus.platform.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <groupId>com.wongdarren</groupId>
-
-  <modelVersion>4.0.0</modelVersion>
-
+  <dependencies>
+    <!-- Quarkus REST Jackson -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-rest-jackson</artifactId>
+    </dependency>
+    <!-- Open API -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-openapi</artifactId>
+    </dependency>
+    <!-- PostgreSQL database -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jdbc-postgresql</artifactId>
+    </dependency>
+    <!-- Logging -->
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging</artifactId>
+    </dependency>
+    <!-- Quarkus Unit Testing -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-junit5</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-junit5-mockito</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- Test HTTP endpoints -->
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- Unit Test Coverage -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jacoco</artifactId>
+    </dependency>
+    <!-- Quarkus Config Yaml -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-config-yaml</artifactId>
+    </dependency>
+  </dependencies>
   <profiles>
     <profile>
       <activation>
@@ -94,7 +112,9 @@
       <build>
         <plugins>
           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
+            <version>${surefire-plugin.version}</version>
             <executions>
               <execution>
                 <configuration>
@@ -113,8 +133,6 @@
                 </goals>
               </execution>
             </executions>
-            <groupId>org.apache.maven.plugins</groupId>
-            <version>${surefire-plugin.version}</version>
           </plugin>
         </plugins>
       </build>
@@ -124,14 +142,4 @@
       </properties>
     </profile>
   </profiles>
-  <properties>
-    <maven.compiler.source>22</maven.compiler.source>
-    <maven.compiler.target>22</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-    <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-    <quarkus.platform.version>3.9.1</quarkus.platform.version>
-    <surefire-plugin.version>3.1.2</surefire-plugin.version>
-  </properties>
-  <version>1.0.0-SNAPSHOT</version>
 </project>

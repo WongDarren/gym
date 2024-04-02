@@ -1,8 +1,5 @@
 package com.wongdarren.model;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
-
-@RegisterForReflection
 public class Legume {
 
   public String name;
