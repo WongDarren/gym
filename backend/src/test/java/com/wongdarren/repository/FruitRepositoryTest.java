@@ -25,7 +25,7 @@ public class FruitRepositoryTest {
     assertEquals(2, fruits.size(), "The size of the fruit set should be 2");
 
     for (Fruit fruit : fruits) {
-      if (!fruit.name.equals("Apple") && !fruit.name.equals("Banana")) {
+      if (!fruit.name().equals("Apple") && !fruit.name().equals("Banana")) {
         fail("The fruit set should only contain Apple and Banana");
       }
     }
