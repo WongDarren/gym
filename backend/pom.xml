@@ -96,11 +96,6 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jacoco</artifactId>
     </dependency>
-    <!-- Quarkus Config Yaml -->
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-config-yaml</artifactId>
-    </dependency>
   </dependencies>
   <profiles>
     <profile>
