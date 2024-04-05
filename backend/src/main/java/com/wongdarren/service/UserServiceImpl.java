@@ -2,7 +2,7 @@ package com.wongdarren.service;
 
 import com.wongdarren.model.User;
 import com.wongdarren.model.UserListResponse;
-import com.wongdarren.repository.UserRepository;
+import com.wongdarren.repository.UserRepositoryImpl;
 import jakarta.ws.rs.NotFoundException;
 import java.util.List;
 
@@ -11,14 +11,14 @@ import java.util.List;
  */
 public class UserServiceImpl implements UserService {
 
-  private final UserRepository userRepository;
+  private final UserRepositoryImpl userRepositoryImpl;
 
 
   /**
    * Instantiates a new User service.
    */
   public UserServiceImpl() {
-    this.userRepository = new UserRepository();
+    this.userRepositoryImpl = new UserRepositoryImpl();
   }
 
 
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
    * @inheritDoc
    */
   public UserListResponse listAllUsers() {
-    List<User> users = userRepository.listAll();
+    List<User> users = userRepositoryImpl.listAll();
     return new UserListResponse(users);
   }
 
@@ -34,17 +34,17 @@ public class UserServiceImpl implements UserService {
    * @inheritDoc
    */
   public User createUser(User user) {
-    return userRepository.save(user);
+    return userRepositoryImpl.save(user);
   }
 
   /**
    * @inheritDoc
    */
   public void deleteUser(Long id) {
-    User user = userRepository.findById(id);
+    User user = userRepositoryImpl.findById(id);
     if (user == null) {
       throw new NotFoundException();
     }
-    userRepository.delete(user);
+    userRepositoryImpl.delete(user);
   }
 }

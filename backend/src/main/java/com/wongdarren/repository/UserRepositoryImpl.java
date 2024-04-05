@@ -9,13 +9,13 @@ import jakarta.enterprise.context.ApplicationScoped;
  * The type User repository.
  */
 @ApplicationScoped
-public class UserRepository implements PanacheRepository<User> {
+public class UserRepositoryImpl implements PanacheRepository<User> {
 
 
   /**
    * Instantiates a new User repository.
    */
-  public UserRepository() {
+  public UserRepositoryImpl() {
   }
 
 
