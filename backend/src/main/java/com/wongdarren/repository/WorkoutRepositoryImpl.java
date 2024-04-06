@@ -30,7 +30,11 @@ public class WorkoutRepositoryImpl implements PanacheRepository<Workout> {
     return workout;
   }
 
-
+  /**
+   * Delete workout.
+   *
+   * @param workout the workout
+   */
   public void delete(Workout workout) {
     workout.delete();
   }
