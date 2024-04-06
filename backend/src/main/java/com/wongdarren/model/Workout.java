@@ -1,12 +1,16 @@
 package com.wongdarren.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 /**
  * The type Workout.
@@ -20,18 +24,23 @@ public class Workout extends PanacheEntityBase {
    */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  public Long id;
+  private Long id;
 
 
   /**
-   * The Date.
+   * The Date and Time.
    */
-  public OffsetDateTime created_at;
+  @Column(name = "created_at")
+  private OffsetDateTime dateTime;
 
   /**
    * The Name.
    */
-  public String name;
+  private String name;
+
+  @OneToMany(mappedBy = "workout")
+  @JsonManagedReference
+  private List<Set> sets;
 
 
   /**
@@ -48,12 +57,12 @@ public class Workout extends PanacheEntityBase {
     this.id = id;
   }
 
-  public OffsetDateTime getCreated_at() {
-    return created_at;
+  public OffsetDateTime getDateTime() {
+    return dateTime;
   }
 
-  public void setCreated_at(OffsetDateTime created_at) {
-    this.created_at = created_at;
+  public void setDateTime(OffsetDateTime dateTime) {
+    this.dateTime = dateTime;
   }
 
   public String getName() {
@@ -62,5 +71,13 @@ public class Workout extends PanacheEntityBase {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public List<Set> getSets() {
+    return sets;
+  }
+
+  public void setSets(List<Set> sets) {
+    this.sets = sets;
   }
 }

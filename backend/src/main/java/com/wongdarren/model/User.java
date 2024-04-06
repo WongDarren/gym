@@ -20,6 +20,7 @@ public class User extends PanacheEntityBase {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   public Long id;
+  
   /**
    * The Name.
    */
