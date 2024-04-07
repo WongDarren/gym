@@ -39,6 +39,22 @@ public class SetServiceImpl implements SetService {
     return setRepositoryImpl.save(set);
   }
 
+  @Override
+  public Set updateSet(Set set) {
+    Set existingSet = setRepositoryImpl.findById(set.id);
+    if (existingSet == null) {
+      throw new NotFoundException();
+    }
+
+    existingSet.setNumber = set.setNumber;
+    existingSet.weight = set.weight;
+    existingSet.reps = set.reps;
+    existingSet.rpe = set.rpe;
+    existingSet.warmup = set.warmup;
+
+    return setRepositoryImpl.update(existingSet);
+  }
+
   /**
    * @inheritDoc
    */

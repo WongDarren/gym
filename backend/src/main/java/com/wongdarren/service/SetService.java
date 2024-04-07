@@ -24,6 +24,14 @@ public interface SetService {
   Set createSet(Set set);
 
   /**
+   * Update set.
+   *
+   * @param set the set
+   * @return the set
+   */
+  Set updateSet(Set set);
+
+  /**
    * Delete set.
    *
    * @param id the id

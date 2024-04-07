@@ -9,12 +9,7 @@ import jakarta.enterprise.context.ApplicationScoped;
  */
 @ApplicationScoped
 public class SetRepositoryImpl implements PanacheRepository<Set> {
-
-  /**
-   * Delete set.
-   *
-   * @param set the set
-   */
+  
   /**
    * Instantiates a new Set repository.
    */
@@ -34,6 +29,17 @@ public class SetRepositoryImpl implements PanacheRepository<Set> {
   }
 
   /**
+   * Update set.
+   *
+   * @param set the set
+   * @return the set
+   */
+  public Set update(Set set) {
+    set.persist();
+    return set;
+  }
+
+  /**
    * Delete set.
    *
    * @param set the set
@@ -41,6 +47,5 @@ public class SetRepositoryImpl implements PanacheRepository<Set> {
   public void delete(Set set) {
     Set.delete("id", set.id);
   }
-
 
 }
