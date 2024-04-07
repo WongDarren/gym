@@ -35,7 +35,7 @@ public interface SetService {
    * Delete set.
    *
    * @param id the id
-   * @return
+   * @return the boolean
    */
   boolean deleteSet(Long id);
 

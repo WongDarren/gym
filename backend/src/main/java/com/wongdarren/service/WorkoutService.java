@@ -37,7 +37,7 @@ public interface WorkoutService {
    * Delete workout.
    *
    * @param id the id
-   * @return
+   * @return the boolean
    */
   boolean deleteWorkout(Long id);
 
