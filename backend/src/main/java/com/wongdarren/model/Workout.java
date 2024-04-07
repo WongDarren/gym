@@ -40,10 +40,16 @@ public class Workout extends PanacheEntityBase {
    */
   public String name;
 
+  /**
+   * The Sets.
+   */
   @OneToMany(mappedBy = "workout", fetch = FetchType.EAGER)
   @JsonManagedReference
   public List<Set> sets;
 
+  /**
+   * Pre persist.
+   */
   @PrePersist
   public void prePersist() {
     if (dateTime == null) {

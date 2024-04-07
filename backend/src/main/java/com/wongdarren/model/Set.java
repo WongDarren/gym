@@ -8,7 +8,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PostLoad;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.time.OffsetDateTime;
 
 /**
@@ -39,6 +42,12 @@ public class Set extends PanacheEntityBase {
   public Workout workout;
 
   /**
+   * The Workout id.
+   */
+  @Transient
+  public Long workoutId;
+
+  /**
    * The Set number.
    */
   @Column(name = "set_number")
@@ -63,4 +72,24 @@ public class Set extends PanacheEntityBase {
    * The Warmup.
    */
   public Boolean warmup;
+
+  /**
+   * Fill transient.
+   */
+  @PostLoad
+  void fillTransient() {
+    if (workout != null) {
+      this.workoutId = workout.id;
+    }
+  }
+
+  /**
+   * Pre persist.
+   */
+  @PrePersist
+  public void prePersist() {
+    if (dateTime == null) {
+      dateTime = OffsetDateTime.now();
+    }
+  }
 }

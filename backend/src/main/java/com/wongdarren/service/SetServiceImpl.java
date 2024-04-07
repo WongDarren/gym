@@ -2,7 +2,9 @@ package com.wongdarren.service;
 
 import com.wongdarren.model.Set;
 import com.wongdarren.model.SetListResponse;
+import com.wongdarren.model.Workout;
 import com.wongdarren.repository.SetRepositoryImpl;
+import com.wongdarren.repository.WorkoutRepositoryImpl;
 import jakarta.ws.rs.NotFoundException;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import java.util.List;
 public class SetServiceImpl implements SetService {
 
   private final SetRepositoryImpl setRepositoryImpl;
+  private final WorkoutRepositoryImpl workoutRepositoryImpl;
 
 
   /**
@@ -19,6 +22,7 @@ public class SetServiceImpl implements SetService {
    */
   public SetServiceImpl() {
     this.setRepositoryImpl = new SetRepositoryImpl();
+    this.workoutRepositoryImpl = new WorkoutRepositoryImpl();
   }
 
 
@@ -35,10 +39,18 @@ public class SetServiceImpl implements SetService {
    * @inheritDoc
    */
   @Override
-  public Set createSet(Set set) {
+  public Set createSet(Set set, Long workoutId) {
+    Workout workout = workoutRepositoryImpl.findById(workoutId);
+    if (workout == null) {
+      throw new NotFoundException("Workout not found");
+    }
+    set.workout = workout;
     return setRepositoryImpl.save(set);
   }
 
+  /**
+   * @inheritDoc
+   */
   @Override
   public Set updateSet(Set set) {
     Set existingSet = setRepositoryImpl.findById(set.id);

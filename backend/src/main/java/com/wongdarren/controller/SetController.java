@@ -51,10 +51,22 @@ public class SetController {
   @POST
   @Transactional
   public Response createSet(Set set) {
-    Set createdSet = setService.createSet(set);
+    Long workoutId = set.workoutId;
+    if (workoutId == null) {
+      return Response.status(Response.Status.BAD_REQUEST)
+          .entity("WorkoutId is not set for the given set.")
+          .build();
+    }
+    Set createdSet = setService.createSet(set, workoutId);
     return Response.status(Response.Status.CREATED).entity(createdSet).build();
   }
 
+  /**
+   * Update set.
+   *
+   * @param set the set
+   * @return the response
+   */
   @PUT
   @Transactional
   public Response updateSet(Set set) {
@@ -62,6 +74,12 @@ public class SetController {
     return Response.status(Response.Status.OK).entity(updatedSet).build();
   }
 
+  /**
+   * Delete set.
+   *
+   * @param id the id
+   * @return the response
+   */
   @DELETE
   @Transactional
   @Path("/{id}")

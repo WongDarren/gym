@@ -21,7 +21,7 @@ public interface SetService {
    * @param set the set
    * @return the set
    */
-  Set createSet(Set set);
+  Set createSet(Set set, Long workoutId);
 
   /**
    * Update set.
