@@ -35,8 +35,13 @@ public class WorkoutController {
    * @return the workout list response
    */
   @GET
-  public WorkoutListResponse list() {
-    return workoutService.listAllWorkouts();
+  public Response list() {
+    WorkoutListResponse workoutListResponse = workoutService.listAllWorkouts();
+    if (workoutListResponse.getWorkouts().isEmpty()) {
+      return Response.status(Response.Status.NO_CONTENT).build();
+    } else {
+      return Response.status(Response.Status.OK).entity(workoutListResponse).build();
+    }
   }
 
   /**
@@ -48,6 +53,11 @@ public class WorkoutController {
   @POST
   @Transactional
   public Response createWorkout(Workout workout) {
+    if (workout == null) {
+      return Response.status(Response.Status.BAD_REQUEST)
+          .entity("Workout is not provided.")
+          .build();
+    }
     Workout createdWorkout = workoutService.createWorkout(workout);
     return Response.status(Response.Status.CREATED).entity(createdWorkout).build();
   }
@@ -61,7 +71,17 @@ public class WorkoutController {
   @PUT
   @Transactional
   public Response updateWorkout(Workout workout) {
+    if (workout == null || workout.id == null) {
+      return Response.status(Response.Status.BAD_REQUEST)
+          .entity("Workout or Workout id is not provided.")
+          .build();
+    }
     Workout updatedWorkout = workoutService.updateWorkout(workout);
+    if (updatedWorkout == null) {
+      return Response.status(Response.Status.NOT_FOUND)
+          .entity("Workout with id " + workout.id + " not found.")
+          .build();
+    }
     return Response.status(Response.Status.OK).entity(updatedWorkout).build();
   }
 
@@ -75,7 +95,17 @@ public class WorkoutController {
   @Transactional
   @Path("/{id}")
   public Response deleteWorkout(Long id) {
-    workoutService.deleteWorkout(id);
+    if (id == null) {
+      return Response.status(Response.Status.BAD_REQUEST)
+          .entity("Workout id is not provided.")
+          .build();
+    }
+    boolean isDeleted = workoutService.deleteWorkout(id);
+    if (!isDeleted) {
+      return Response.status(Response.Status.NOT_FOUND)
+          .entity("Workout with id " + id + " not found.")
+          .build();
+    }
     return Response.status(Response.Status.OK)
         .entity("Workout with id " + id + " has been deleted.")
         .build();

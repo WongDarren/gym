@@ -31,14 +31,15 @@ public interface WorkoutService {
    * @return the workout
    */
   Workout updateWorkout(Workout workout);
-  
+
 
   /**
    * Delete workout.
    *
    * @param id the id
+   * @return
    */
-  void deleteWorkout(Long id);
+  boolean deleteWorkout(Long id);
 
 
 }

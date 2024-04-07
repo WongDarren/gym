@@ -53,14 +53,16 @@ public class WorkoutServiceImpl implements WorkoutService {
   }
 
   /**
+   * @return
    * @inheritDoc
    */
   @Override
-  public void deleteWorkout(Long id) {
+  public boolean deleteWorkout(Long id) {
     Workout workout = workoutRepositoryImpl.findById(id);
     if (workout == null) {
       throw new NotFoundException();
     }
     workoutRepositoryImpl.delete(workout);
+    return false;
   }
 }

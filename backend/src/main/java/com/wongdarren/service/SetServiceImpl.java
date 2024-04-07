@@ -68,14 +68,16 @@ public class SetServiceImpl implements SetService {
   }
 
   /**
+   * @return
    * @inheritDoc
    */
   @Override
-  public void deleteSet(Long id) {
+  public boolean deleteSet(Long id) {
     Set set = setRepositoryImpl.findById(id);
     if (set == null) {
       throw new NotFoundException();
     }
     setRepositoryImpl.delete(set);
+    return false;
   }
 }

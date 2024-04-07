@@ -28,17 +28,16 @@ public class Workout extends PanacheEntityBase {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   public Long id;
 
+  /**
+   * The Name.
+   */
+  public String name;
 
   /**
    * The Date and Time.
    */
   @Column(name = "created_at")
   public OffsetDateTime dateTime;
-
-  /**
-   * The Name.
-   */
-  public String name;
 
   /**
    * The Sets.

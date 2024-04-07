@@ -38,8 +38,13 @@ public class SetController {
    * @return the set list response
    */
   @GET
-  public SetListResponse list() {
-    return setService.listAllSets();
+  public Response list() {
+    SetListResponse setListResponse = setService.listAllSets();
+    if (setListResponse.getSets().isEmpty()) {
+      return Response.status(Response.Status.NO_CONTENT).build();
+    } else {
+      return Response.status(Response.Status.OK).entity(setListResponse).build();
+    }
   }
 
   /**
@@ -70,7 +75,17 @@ public class SetController {
   @PUT
   @Transactional
   public Response updateSet(Set set) {
+    if (set == null || set.id == null) {
+      return Response.status(Response.Status.BAD_REQUEST)
+          .entity("Set or Set id is not provided.")
+          .build();
+    }
     Set updatedSet = setService.updateSet(set);
+    if (updatedSet == null) {
+      return Response.status(Response.Status.NOT_FOUND)
+          .entity("Set with id " + set.id + " not found.")
+          .build();
+    }
     return Response.status(Response.Status.OK).entity(updatedSet).build();
   }
 
@@ -84,7 +99,17 @@ public class SetController {
   @Transactional
   @Path("/{id}")
   public Response deleteSet(Long id) {
-    setService.deleteSet(id);
+    if (id == null) {
+      return Response.status(Response.Status.BAD_REQUEST)
+          .entity("Set id is not provided.")
+          .build();
+    }
+    boolean isDeleted = setService.deleteSet(id);
+    if (!isDeleted) {
+      return Response.status(Response.Status.NOT_FOUND)
+          .entity("Set with id " + id + " not found.")
+          .build();
+    }
     return Response.status(Response.Status.OK)
         .entity("Set with id " + id + " has been deleted.")
         .build();
