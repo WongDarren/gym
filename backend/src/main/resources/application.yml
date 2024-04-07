@@ -1,0 +1,14 @@
+quarkus:
+  http:
+    cors:
+      ~: true
+      access-control-allow-credentials: true
+      headers: Access-Control-Allow-Origin
+      origins: "*"
+  datasource:
+    db-kind: postgresql
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    jdbc:
+      url: ${DB_URL}
+      max-size: 16
