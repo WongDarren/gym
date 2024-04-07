@@ -25,10 +25,20 @@ public interface WorkoutService {
   Workout createWorkout(Workout workout);
 
   /**
+   * Update workout.
+   *
+   * @param workout the workout
+   * @return the workout
+   */
+  Workout updateWorkout(Workout workout);
+  
+
+  /**
    * Delete workout.
    *
    * @param id the id
    */
   void deleteWorkout(Long id);
+
 
 }

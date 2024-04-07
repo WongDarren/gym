@@ -23,114 +23,44 @@ public class Set extends PanacheEntityBase {
    */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  public Long id;
 
   /**
    * The Date and Time.
    */
   @Column(name = "created_at")
-  private OffsetDateTime dateTime;
-
+  public OffsetDateTime dateTime;
 
   /**
    * The Workout.
    */
   @ManyToOne
   @JsonBackReference
-  private Workout workout;
+  public Workout workout;
 
   /**
-   * The Number.
+   * The Set number.
    */
-  private Short number;
+  @Column(name = "set_number")
+  public Short setNumber;
 
   /**
    * The Weight.
    */
-  private Double weight;
+  public Short weight;
 
   /**
    * The Reps.
    */
-  private Short reps;
+  public Short reps;
 
   /**
    * The Rpe.
    */
-  private Short rpe;
+  public Short rpe;
 
   /**
    * The Warmup.
    */
-  private Boolean warmup;
-
-  /**
-   * Instantiates a new Set.
-   */
-  public Set() {
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public OffsetDateTime getDateTime() {
-    return dateTime;
-  }
-
-  public void setDateTime(OffsetDateTime dateTime) {
-    this.dateTime = dateTime;
-  }
-
-  public Workout getWorkout() {
-    return workout;
-  }
-
-  public void setWorkout(Workout workout) {
-    this.workout = workout;
-  }
-
-  public Short getNumber() {
-    return number;
-  }
-
-  public void setNumber(Short number) {
-    this.number = number;
-  }
-
-  public Double getWeight() {
-    return weight;
-  }
-
-  public void setWeight(Double weight) {
-    this.weight = weight;
-  }
-
-  public Short getReps() {
-    return reps;
-  }
-
-  public void setReps(Short reps) {
-    this.reps = reps;
-  }
-
-  public Short getRpe() {
-    return rpe;
-  }
-
-  public void setRpe(Short rpe) {
-    this.rpe = rpe;
-  }
-
-  public Boolean getWarmup() {
-    return warmup;
-  }
-
-  public void setWarmup(Boolean warmup) {
-    this.warmup = warmup;
-  }
+  public Boolean warmup;
 }
