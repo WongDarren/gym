@@ -9,7 +9,7 @@ import jakarta.enterprise.context.ApplicationScoped;
  */
 @ApplicationScoped
 public class SetRepositoryImpl implements PanacheRepository<Set> {
-  
+
   /**
    * Instantiates a new Set repository.
    */

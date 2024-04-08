@@ -53,7 +53,6 @@ public class WorkoutServiceImpl implements WorkoutService {
   }
 
   /**
-   * @return
    * @inheritDoc
    */
   @Override

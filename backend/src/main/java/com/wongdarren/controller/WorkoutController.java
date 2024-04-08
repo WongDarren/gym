@@ -13,7 +13,15 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
+/**
+ * The type Workout controller.
+ */
 @Path("/workouts")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -35,6 +43,13 @@ public class WorkoutController {
    * @return the workout list response
    */
   @GET
+  @Operation(summary = "List all workouts")
+  @APIResponses(value = {
+      @APIResponse(responseCode = "200", description = "Workouts found",
+          content = @Content(schema = @Schema(implementation = WorkoutListResponse.class))),
+      @APIResponse(responseCode = "204", description = "No workouts found"),
+  }
+  )
   public Response list() {
     WorkoutListResponse workoutListResponse = workoutService.listAllWorkouts();
     if (workoutListResponse.getWorkouts().isEmpty()) {
@@ -52,6 +67,13 @@ public class WorkoutController {
    */
   @POST
   @Transactional
+  @Operation(summary = "Create a new workout")
+  @APIResponses(value = {
+      @APIResponse(responseCode = "201", description = "Workout created",
+          content = @Content(schema = @Schema(implementation = Workout.class))),
+      @APIResponse(responseCode = "400", description = "Workout is not provided"),
+  }
+  )
   public Response createWorkout(Workout workout) {
     if (workout == null) {
       return Response.status(Response.Status.BAD_REQUEST)
@@ -70,6 +92,14 @@ public class WorkoutController {
    */
   @PUT
   @Transactional
+  @Operation(summary = "Update an existing workout")
+  @APIResponses(value = {
+      @APIResponse(responseCode = "200", description = "Workout updated",
+          content = @Content(schema = @Schema(implementation = Workout.class))),
+      @APIResponse(responseCode = "400", description = "Workout or Workout id is not provided"),
+      @APIResponse(responseCode = "404", description = "Workout not found"),
+  }
+  )
   public Response updateWorkout(Workout workout) {
     if (workout == null || workout.id == null) {
       return Response.status(Response.Status.BAD_REQUEST)
@@ -94,6 +124,13 @@ public class WorkoutController {
   @DELETE
   @Transactional
   @Path("/{id}")
+  @Operation(summary = "Delete an existing workout")
+  @APIResponses(value = {
+      @APIResponse(responseCode = "200", description = "Workout deleted"),
+      @APIResponse(responseCode = "400", description = "Workout id is not provided"),
+      @APIResponse(responseCode = "404", description = "Workout not found"),
+  }
+  )
   public Response deleteWorkout(Long id) {
     if (id == null) {
       return Response.status(Response.Status.BAD_REQUEST)

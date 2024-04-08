@@ -68,7 +68,6 @@ public class SetServiceImpl implements SetService {
   }
 
   /**
-   * @return
    * @inheritDoc
    */
   @Override
