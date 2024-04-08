@@ -13,3 +13,5 @@ quarkus:
     jdbc:
       url: ${DB_URL}
       max-size: 16
+  swagger-ui:
+    always-include: true
