@@ -1,7 +1,6 @@
 package com.wongdarren.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +39,6 @@ public class Set extends PanacheEntityBase {
    */
   @ManyToOne
   @JsonBackReference
-  @JsonIgnore
   public Workout workout;
 
   /**

@@ -41,6 +41,17 @@ async function getWorkouts(): Promise<Workout[]> {
 export default function Workouts() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
 
+  async function createWorkout(name: string): Promise<void> {
+    try {
+      await axios.post('http://localhost:8080/api/workouts', { name });
+      // After successfully creating a workout, fetch the updated list of workouts
+      const updatedWorkouts = await getWorkouts();
+      setWorkouts(updatedWorkouts);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
   useEffect(() => {
     void getWorkouts().then(setWorkouts);
   }, []);
@@ -48,7 +59,7 @@ export default function Workouts() {
   return (
     <>
       <div>Workouts</div>
-      <Button text="Add Workout" />
+      <Button text="Add Workout" onClick={() => createWorkout('squat')} />{' '}
       {workouts.map(workout => (
         <div key={workout.id} className="mb-4">
           <h2 className="text-2xl font-bold">{workout.name}</h2>
