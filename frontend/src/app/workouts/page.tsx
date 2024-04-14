@@ -67,8 +67,6 @@ export default function Workouts() {
       />
       <WorkoutTable
         workouts={workouts}
-        title="Workouts"
-        description="Description can go here if I want to add one."
         buttonText="Add Workout"
         buttonOnClick={async () => {
           if (workoutName) {
