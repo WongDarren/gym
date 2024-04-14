@@ -40,6 +40,7 @@ async function getWorkouts(): Promise<Workout[]> {
 
 export default function Workouts() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
+  const [workoutName, setWorkoutName] = useState('');
 
   async function createWorkout(name: string): Promise<Workout> {
     try {
@@ -61,20 +62,30 @@ export default function Workouts() {
   return (
     <>
       <div>Workouts</div>
+      <input
+        type="text"
+        value={workoutName}
+        onChange={e => {
+          setWorkoutName(e.target.value);
+        }}
+      />
       <Button
         text="Add Workout"
         onClick={async () => {
-          const newWorkout = await createWorkout('squat');
-          setWorkouts(prevWorkouts => [...prevWorkouts, newWorkout]);
+          if (workoutName) {
+            const newWorkout = await createWorkout(workoutName);
+            setWorkouts(prevWorkouts => [...prevWorkouts, newWorkout]);
+            setWorkoutName(''); // reset the input field
+          }
         }}
-      />{' '}
+      />
       {workouts.map(workout => (
         <div key={workout.id} className="mb-4">
           <h2 className="text-2xl font-bold">{workout.name}</h2>
           <p className="text-gray-500">
             {new Date(workout.dateTime).toLocaleString()}
           </p>
-          {workout.sets.length > 0
+          {workout.sets?.length > 0
             ? workout.sets.map(set => (
                 <div
                   key={set.id}
@@ -92,7 +103,7 @@ export default function Workouts() {
               ))
             : null}
         </div>
-      ))}
+      ))}{' '}
     </>
   );
 }
