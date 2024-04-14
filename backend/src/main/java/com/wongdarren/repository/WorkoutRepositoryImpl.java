@@ -16,7 +16,7 @@ public class WorkoutRepositoryImpl implements PanacheRepository<Workout> {
    */
   public WorkoutRepositoryImpl() {
   }
-
+  
   /**
    * Find by id workout.
    *

@@ -2,25 +2,8 @@
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import Button from '@/app/components/ui/button';
-
-interface Set {
-  id: number;
-  dateTime: string;
-  workoutId: number;
-  setNumber: number;
-  weight: number;
-  reps: number;
-  rpe: number;
-  warmup: boolean;
-}
-
-interface Workout {
-  id: number;
-  name: string;
-  dateTime: string;
-  sets: Set[];
-}
+import WorkoutTable from '@/app/components/workout-table';
+import { type Workout } from './types';
 
 interface ApiResponse {
   workouts: Workout[];
@@ -37,6 +20,12 @@ async function getWorkouts(): Promise<Workout[]> {
     return []; // return an empty array in case of an error
   }
 }
+
+// TODO: Edit a workout
+// TODO: Delete a workout
+// TODO: Add a set to a workout
+// TODO: Edit a set
+// TODO: Delete a set
 
 export default function Workouts() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
@@ -56,54 +45,39 @@ export default function Workouts() {
   }
 
   useEffect(() => {
-    void getWorkouts().then(setWorkouts);
+    void getWorkouts().then(fetchedWorkouts => {
+      // Sort the workouts in descending order
+      fetchedWorkouts.sort(
+        (a, b) =>
+          new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime()
+      );
+      setWorkouts(fetchedWorkouts);
+    });
   }, []);
 
   return (
     <>
-      <div>Workouts</div>
       <input
         type="text"
         value={workoutName}
+        style={{ border: '1px solid #000' }}
         onChange={e => {
           setWorkoutName(e.target.value);
         }}
       />
-      <Button
-        text="Add Workout"
-        onClick={async () => {
+      <WorkoutTable
+        workouts={workouts}
+        title="Workouts"
+        description="Description can go here if I want to add one."
+        buttonText="Add Workout"
+        buttonOnClick={async () => {
           if (workoutName) {
             const newWorkout = await createWorkout(workoutName);
-            setWorkouts(prevWorkouts => [...prevWorkouts, newWorkout]);
+            setWorkouts(prevWorkouts => [newWorkout, ...prevWorkouts]);
             setWorkoutName(''); // reset the input field
           }
         }}
       />
-      {workouts.map(workout => (
-        <div key={workout.id} className="mb-4">
-          <h2 className="text-2xl font-bold">{workout.name}</h2>
-          <p className="text-gray-500">
-            {new Date(workout.dateTime).toLocaleString()}
-          </p>
-          {workout.sets?.length > 0
-            ? workout.sets.map(set => (
-                <div
-                  key={set.id}
-                  className="mt-2 border-t border-gray-200 bg-gray-100 p-3"
-                >
-                  <p className="text-sm">Set Number: {set.setNumber}</p>
-                  <p className="text-sm">Weight: {set.weight}</p>
-                  <p className="text-sm">Reps: {set.reps}</p>
-                  <p className="text-sm">RPE: {set.rpe}</p>
-                  <p className="text-sm">Warmup: {set.warmup ? 'Yes' : 'No'}</p>
-                  <p className="text-sm">
-                    Set Time: {new Date(set.dateTime).toLocaleString()}
-                  </p>
-                </div>
-              ))
-            : null}
-        </div>
-      ))}{' '}
     </>
   );
 }
