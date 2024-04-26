@@ -72,11 +72,11 @@ public class SetServiceImpl implements SetService {
    */
   @Override
   public boolean deleteSet(Long id) {
-    Set set = setRepositoryImpl.findById(id);
-    if (set == null) {
-      throw new NotFoundException();
+    Set set = Set.findById(id);
+    if (set != null) {
+      set.delete();
+      return true;
     }
-    setRepositoryImpl.delete(set);
     return false;
   }
 }

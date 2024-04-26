@@ -22,10 +22,10 @@ async function getWorkouts(): Promise<Workout[]> {
 }
 
 // TODO: Edit a workout
-// TODO: Delete a workout
 // TODO: Add a set to a workout
 // TODO: Edit a set
-// TODO: Delete a set
+// TODO: Confirm delete prompt
+// TODO: Allow cascading delete of a workout and its sets when you delete a workout (NEEDS CONFIRMATION)
 
 export default function Workouts() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
@@ -41,6 +41,35 @@ export default function Workouts() {
     } catch (error) {
       console.error('Error:', error);
       throw error;
+    }
+  }
+
+  async function deleteWorkout(workoutId: number): Promise<void> {
+    try {
+      await axios.delete(
+        `http://localhost:8080/api/workouts/${workoutId.toString()}`
+      );
+      // Remove the workout from the workouts state
+      setWorkouts(prevWorkouts =>
+        prevWorkouts.filter(workout => workout.id !== workoutId)
+      );
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  async function deleteSet(setId: number): Promise<void> {
+    try {
+      await axios.delete(`http://localhost:8080/api/sets/${setId.toString()}`);
+      // Remove the set from the workouts state
+      setWorkouts(prevWorkouts =>
+        prevWorkouts.map(workout => ({
+          ...workout,
+          sets: workout.sets.filter(set => set.id !== setId)
+        }))
+      );
+    } catch (error) {
+      console.error('Error:', error);
     }
   }
 
@@ -74,6 +103,16 @@ export default function Workouts() {
             setWorkouts(prevWorkouts => [newWorkout, ...prevWorkouts]);
             setWorkoutName(''); // reset the input field
           }
+        }}
+        onDeleteSet={(setId: number) => {
+          deleteSet(setId).catch((error: unknown) => {
+            console.error('Error:', error);
+          });
+        }}
+        onDeleteWorkout={(workoutId: number) => {
+          deleteWorkout(workoutId).catch((error: unknown) => {
+            console.error('Error:', error);
+          });
         }}
       />
     </>

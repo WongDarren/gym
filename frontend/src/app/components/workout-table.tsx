@@ -1,3 +1,5 @@
+import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import React from 'react';
 import Button from '@/app/components/ui/button';
 import { type Workout } from '@/app/workouts/types';
 
@@ -8,12 +10,16 @@ interface TableProps {
 interface ButtonProps {
   buttonText: string;
   buttonOnClick?: () => Promise<void>;
+  onDeleteSet?: (setId: number) => void;
+  onDeleteWorkout?: (workoutId: number) => void;
 }
 
 export default function WorkoutTable({
   workouts,
   buttonText,
-  buttonOnClick
+  buttonOnClick,
+  onDeleteSet,
+  onDeleteWorkout
 }: TableProps & ButtonProps) {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -23,26 +29,34 @@ export default function WorkoutTable({
         </div>
       </div>
       <div className="-mx-4 mt-8 sm:-mx-0">
-        <table className="min-w-full divide-y divide-gray-300">
+        <table className="min-w-full table-auto divide-y divide-gray-300">
           <thead>
             <tr>
               <th
+                colSpan={6}
                 scope="col"
                 className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
               >
                 Workouts
               </th>
+              <th />
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {workouts.map(workout => (
-              <>
+              <React.Fragment key={workout.id}>
                 <tr>
                   <td
-                    className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-700 sm:pl-0"
-                    colSpan={5}
+                    colSpan={6}
+                    className=" whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-700 sm:pl-0"
                   >
-                    {`${workout.name} - ${new Date(workout.dateTime).toLocaleDateString()} - ${new Date(workout.dateTime).toLocaleTimeString()}`}{' '}
+                    <span>{`${workout.name} - ${new Date(workout.dateTime).toLocaleDateString()} - ${new Date(workout.dateTime).toLocaleTimeString()}`}</span>
+                  </td>
+                  <td>
+                    <TrashIcon
+                      className="h-5 w-5 cursor-pointer text-gray-500 transition duration-500 hover:text-red-500"
+                      onClick={() => onDeleteWorkout?.(workout.id)}
+                    />
                   </td>
                 </tr>
                 {workout.sets && workout.sets.length > 0 ? (
@@ -78,13 +92,12 @@ export default function WorkoutTable({
                       >
                         Warmup
                       </th>
+                      <th scope="col" />
+                      <th scope="col" />
                     </tr>
                     {
-                      // TODO: When mobile show the weight
-                      // TODO: When mobile show the reps
                       // TODO: When mobile change color of row to indicate warmup/ working set
                       // TODO: When mobile show the edit button
-                      // TODO: When mobile show the delete button
                     }
                     {workout.sets.map(set => (
                       <tr key={set.id}>
@@ -103,11 +116,23 @@ export default function WorkoutTable({
                         <td className="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:table-cell">
                           {set.warmup ? 'Warmup' : 'Workout'}
                         </td>
+                        <td>
+                          <TrashIcon
+                            className="h-5 w-5 cursor-pointer text-gray-500 transition duration-500 hover:text-red-500"
+                            onClick={() => onDeleteSet?.(set.id)}
+                          />
+                        </td>
+                        <td>
+                          <PencilSquareIcon
+                            className="h-5 w-5 text-gray-500"
+                            aria-hidden="true"
+                          />
+                        </td>
                       </tr>
                     ))}
                   </>
                 ) : null}
-              </>
+              </React.Fragment>
             ))}
           </tbody>
         </table>

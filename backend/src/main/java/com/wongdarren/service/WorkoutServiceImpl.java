@@ -62,6 +62,6 @@ public class WorkoutServiceImpl implements WorkoutService {
       throw new NotFoundException();
     }
     workoutRepositoryImpl.delete(workout);
-    return false;
+    return true;
   }
 }
