@@ -41,6 +41,8 @@ function WorkoutRow({
   );
 }
 
+// TODO: Warmups are RPE 6 and below. If it is RPE 7 or above, it is a working set.
+// This needs to be updated in the backend and database.
 function SetRow({
   set,
   onDeleteSet
