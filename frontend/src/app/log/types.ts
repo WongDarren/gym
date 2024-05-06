@@ -6,7 +6,6 @@ export interface Set {
   weight: number;
   reps: number;
   rpe: number;
-  warmup: boolean;
 }
 
 export interface Workout {

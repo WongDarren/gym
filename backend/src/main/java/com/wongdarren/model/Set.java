@@ -67,12 +67,7 @@ public class Set extends PanacheEntityBase {
    * The Rpe.
    */
   public Short rpe;
-
-  /**
-   * The Warmup.
-   */
-  public Boolean warmup;
-
+  
   /**
    * Fill transient.
    */

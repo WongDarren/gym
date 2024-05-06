@@ -62,7 +62,6 @@ public class SetServiceImpl implements SetService {
     existingSet.weight = set.weight;
     existingSet.reps = set.reps;
     existingSet.rpe = set.rpe;
-    existingSet.warmup = set.warmup;
 
     return setRepositoryImpl.update(existingSet);
   }
