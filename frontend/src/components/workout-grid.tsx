@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { isSameDay } from 'date-fns';
 import WorkoutCard from '@/components/workout-card';
-import type { Workout } from '@/app/workouts/types';
+import type { Workout } from '@/app/log/types';
 
 interface ApiResponse {
   workouts: Workout[];

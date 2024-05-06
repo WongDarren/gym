@@ -1,16 +1,16 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
-import { type Workout } from '@/app/workouts/types'; // import the Workout type
+import { type Workout } from '@/app/log/types';
+import BottomGradient from '@/components/ui/bottom-gradient';
+import { Button } from '@/components/ui/button';
 
 interface WorkoutCardProps extends CardProps {
   workout: Workout;
@@ -35,13 +35,27 @@ export default function WorkoutCard({
   return (
     <Card className={cn('w-[380px]', className)} {...props}>
       <CardHeader>
-        <CardTitle>
-          {workout.name.charAt(0).toUpperCase() + workout.name.slice(1)}
-        </CardTitle>
-        <CardDescription>
-          <span>{new Date(workout.dateTime).toLocaleTimeString()}</span>
-        </CardDescription>
+        <div className="flex justify-between">
+          <div>
+            <CardTitle>
+              {workout.name.charAt(0).toUpperCase() + workout.name.slice(1)}
+            </CardTitle>
+            <CardDescription>
+              <span>{new Date(workout.dateTime).toLocaleTimeString()}</span>
+            </CardDescription>
+          </div>
+          <div>
+            <Button
+              className="group/btn relative flex h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+              type="submit"
+            >
+              <PlusIcon className="mr-2 h-4 w-4" /> Add set
+              <BottomGradient />
+            </Button>
+          </div>
+        </div>
       </CardHeader>
+
       <CardContent className="grid gap-4">
         <div>
           {workout.sets
@@ -81,11 +95,6 @@ export default function WorkoutCard({
             })}
         </div>
       </CardContent>
-      <CardFooter>
-        <Button className="w-full">
-          <PlusIcon className="mr-2 h-4 w-4" /> Add set
-        </Button>
-      </CardFooter>
     </Card>
   );
 }
