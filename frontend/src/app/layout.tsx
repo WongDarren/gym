@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { type ReactNode } from 'react';
 import { Toaster } from '@/components/ui/toaster';
+import { Navigation } from '@/components/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-6xl">
+            <Navigation />
             <main>{children}</main>
+            <div>Footer</div>
             <Toaster />
           </div>
         </div>
