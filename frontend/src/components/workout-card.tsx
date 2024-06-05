@@ -11,6 +11,15 @@ import {
 import { type Workout } from '@/app/log/types';
 import BottomGradient from '@/components/ui/bottom-gradient';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog';
+import { SetForm } from '@/components/set-form';
 
 interface WorkoutCardProps extends CardProps {
   workout: Workout;
@@ -47,14 +56,28 @@ export default function WorkoutCard({
           <div className="flex items-center justify-end space-x-3">
             <TrashIcon className="h-5 w-5 cursor-pointer transition duration-500 hover:text-red-500" />
             <PencilIcon className="h-5 w-5 cursor-pointer" />
-            <Button
-              className="group/btn relative flex h-10 rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-              type="submit"
-              title="Add a set"
-            >
-              <PlusIcon className="h-4 w-4" />
-              <BottomGradient />
-            </Button>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  className="group/btn relative flex h-10 rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+                  type="submit"
+                  title="Add a set"
+                >
+                  <PlusIcon className="h-4 w-4" />
+                  <BottomGradient />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Add a set</DialogTitle>
+                  <DialogDescription>
+                    Add a set to your workout
+                  </DialogDescription>
+                </DialogHeader>
+                <SetForm workoutId={workout.id} />
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </CardHeader>

@@ -5,7 +5,6 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import DatePickerForm from '@/components/date-picker-form';
 import WorkoutGrid from '@/components/workout-grid';
 import { Button } from '@/components/ui/button';
-import { SetForm } from '@/components/set-form';
 import BottomGradient from '@/components/ui/bottom-gradient';
 
 export default function LogPage() {
@@ -26,7 +25,6 @@ export default function LogPage() {
         </Button>
       </div>
       <WorkoutGrid selectedDate={selectedDate} />
-      <SetForm />
     </div>
   );
 }
